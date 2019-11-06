@@ -1,7 +1,7 @@
 FROM python:3
 
 RUN git clone https://github.com/valenscalco/Sudoku.git
-COPY requirements.txt /tmp
+COPY requirements.txt /Sudoku
 WORKDIR /Sudoku
 
 
