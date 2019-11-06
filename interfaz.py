@@ -3,7 +3,6 @@ from api import api
 
 
 class Interfaz(Sudoku):
-
     def __init__(self):
         lista = api(9)
         self.sudoku = Sudoku(lista)
@@ -31,14 +30,14 @@ class Interfaz(Sudoku):
             while valido is False:
                 number = int(input("Ingrese un numero entre el 1 al 9\n"))
                 valido = Interfaz.validate(number)
-            while validoc is False:
+            while validor is False:
                 x = int(input(
                     "Ingrese la fila para colocar el numero del 0 al 8 \n"))
-                validoc = self.validate_x(x)
-            while validor is False:
+                validor = self.validate_x(x)
+            while validoc is False:
                 y = int(input(
                     "Ingrese la columna para colocar el numero del 0 al 8 \n"))
-                validor = self.validate_y(y)
+                validoc = self.validate_y(y)
 
             self.sudoku.val_variables(number, x, y)
 
@@ -53,26 +52,36 @@ class Interfaz(Sudoku):
             return False
 
     def validate_x(self, x):
-        if x:
+        try:
             if x >= 0 and x <= 8:
                 return True
             else:
                 print("Ingrese un numero entre 0 y 8")
                 return False
-        else:
+        except Exception:
             print("Ingrese un numero porfavor")
             return False
 
     def validate_y(self, y):
-        if y:
+        try:
             if y >= 0 and y <= 8:
                 return True
             else:
                 print("Ingrese un numero entre 0 y 8")
                 return False
-        else:
+        except Exception:
             print("Ingrese un numero porfavor")
             return False
+
+    def why(self, number, x, y):
+        if self.sudoku.val_area(number, x, y) is False:
+            print("Se repite el numero en el area")
+        if self.sudoku.val_column(number, y) is False:
+            print("Se repite el numero en la columna")
+        if self.sudoku.val_row(number, x) is False:
+            print("Se repite el numero en la fila")
+        if self.sudoku.val_position(x, y) is False:
+            print("Posicion original, coloque otra posicion")
 
 
 if __name__ == "__main__":

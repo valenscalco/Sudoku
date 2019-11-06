@@ -2,21 +2,14 @@ class Sudoku():
     def __init__(self, board):
         self.board = board
 
-        self.no_delete = [
-            [5, 3, 0, 0, 0, 7, 0, 0, 0],
-            [6, 0, 0, 1, 9, 5, 0, 0, 0],
-            [0, 9, 8, 0, 0, 0, 0, 6, 0],
-            [8, 0, 0, 0, 6, 0, 0, 0, 3],
-            [4, 0, 0, 8, 0, 3, 0, 0, 1],
-            [7, 0, 0, 0, 2, 0, 0, 0, 6],
-            [0, 6, 0, 0, 0, 0, 2, 8, 0],
-            [0, 0, 0, 4, 1, 9, 0, 0, 5],
-            [0, 0, 0, 0, 8, 0, 0, 7, 9]
-        ]
+        self.no_delete = []
+        for i in range(9):
+            for j in range(len(self.board[i])):
+                if (self.board[i][j] != 0):
+                    self.no_delete.append((i, j))
 
     def val_position(self, x, y):
-        if self.no_delete[x][y] != 0:
-            print("Posicion original, coloque otra posicion")
+        if (x, y) in self.no_delete:
             return False
         else:
             return True
@@ -24,7 +17,6 @@ class Sudoku():
     def val_column(self, number, y):
         for i in range(9):
             if self.board[i][y] == number:
-                print("Se repite el numero en la columna")
                 return False
 
         return True
@@ -32,7 +24,6 @@ class Sudoku():
     def val_row(self, number, x):
         for j in range(9):
             if self.board[x][j] == number:
-                print("Se repite el numero en la fila")
                 return False
 
         return True
@@ -43,7 +34,6 @@ class Sudoku():
                 for i in range(3):
                     for j in range(3):
                         if self.board[i][j] == number:
-                            print("Se repite el numero en el area")
                             return False
 
                 return True
@@ -51,7 +41,6 @@ class Sudoku():
                 for i in range(3):
                     for j in range(3):
                         if self.board[i][j+3] == number:
-                            print("Se repite el numero en el area")
                             return False
 
                 return True
@@ -59,7 +48,6 @@ class Sudoku():
                 for i in range(3):
                     for j in range(3):
                         if self.board[i][j+6] == number:
-                            print("Se repite el numero en el area")
                             return False
 
                 return True
@@ -69,7 +57,6 @@ class Sudoku():
                 for i in range(3):
                     for j in range(3):
                         if self.board[i+3][j] == number:
-                            print("Se repite el numero en el area")
                             return False
 
                 return True
@@ -77,7 +64,6 @@ class Sudoku():
                 for i in range(3):
                     for j in range(3):
                         if self.board[i+3][j+3] == number:
-                            print("Se repite el numero en el area")
                             return False
 
                 return True
@@ -85,7 +71,6 @@ class Sudoku():
                 for i in range(3):
                     for j in range(3):
                         if self.board[i+3][j+6] == number:
-                            print("Se repite el numero en el area")
                             return False
 
                 return True
@@ -95,7 +80,6 @@ class Sudoku():
                 for i in range(3):
                     for j in range(3):
                         if self.board[i+6][j] == number:
-                            print("Se repite el numero en el area")
                             return False
 
                 return True
@@ -103,7 +87,6 @@ class Sudoku():
                 for i in range(3):
                     for j in range(3):
                         if self.board[i+6][j+3] == number:
-                            print("Se repite el numero en el area")
                             return False
 
                 return True
@@ -111,14 +94,13 @@ class Sudoku():
                 for i in range(3):
                     for j in range(3):
                         if self.board[i+6][j+6] == number:
-                            print("Se repite el numero en el area")
                             return False
 
                 return True
 
     def val_variables(self, number, x, y):
-        if (self.val_area(number, x, y) and self.val_column(number, x)
-           and self.val_row(number, y) and self.val_position(x, y)):
+        if (self.val_area(number, x, y) and self.val_column(number, y)
+           and self.val_row(number, x) and self.val_position(x, y)):
             self.board[x][y] = number
             return True
 

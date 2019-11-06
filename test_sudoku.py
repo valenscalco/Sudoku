@@ -1,9 +1,11 @@
 import unittest
+from parameterized import parameterized
 from sudoku import Sudoku
 
 
 class TestSudoku(unittest.TestCase):
     def setUp(self):
+
         self.sudoku = Sudoku([
             [5, 3, 0, 0, 0, 7, 0, 0, 0],
             [6, 0, 0, 1, 9, 5, 0, 0, 0],
@@ -28,14 +30,99 @@ class TestSudoku(unittest.TestCase):
             [1, 5, 6, 4, 8, 2, 3, 7, 9]
         ])
 
-    def test_position_is_original(self):
+    @parameterized.expand([
+        (0, 0),
+        (0, 1),
+        (0, 5),
+        (1, 0),
+        (1, 3),
+        (1, 4),
+        (1, 5),
+        (2, 1),
+        (2, 2),
+        (2, 7),
+        (3, 0),
+        (3, 4),
+        (3, 8),
+        (4, 0),
+        (4, 3),
+        (4, 5),
+        (4, 8),
+        (5, 0),
+        (5, 4),
+        (5, 8),
+        (6, 1),
+        (6, 6),
+        (6, 7),
+        (7, 3),
+        (7, 4),
+        (7, 5),
+        (7, 8),
+        (8, 4),
+        (8, 7),
+        (8, 8)
+    ])
+    def test_position_is_original(self, x, y):
         # import pdb
         # pdb.set_trace()
-        value = self.sudoku.val_position(0, 0)
+        value = self.sudoku.val_position(x, y)
         self.assertFalse(value)
 
-    def test_position_is_not_original(self):
-        value = self.sudoku.val_position(1, 2)
+    @parameterized.expand([
+        (0, 2),
+        (0, 3),
+        (0, 4),
+        (0, 6),
+        (0, 7),
+        (0, 8),
+        (1, 1),
+        (1, 2),
+        (1, 6),
+        (1, 7),
+        (1, 8),
+        (2, 0),
+        (2, 3),
+        (2, 4),
+        (2, 5),
+        (2, 6),
+        (2, 8),
+        (3, 1),
+        (3, 2),
+        (3, 3),
+        (3, 5),
+        (3, 6),
+        (3, 7),
+        (4, 1),
+        (4, 2),
+        (4, 4),
+        (4, 6),
+        (4, 7),
+        (5, 1),
+        (5, 2),
+        (5, 3),
+        (5, 5),
+        (5, 6),
+        (5, 7),
+        (6, 0),
+        (6, 2),
+        (6, 3),
+        (6, 4),
+        (6, 5),
+        (6, 8),
+        (7, 0),
+        (7, 1),
+        (7, 2),
+        (7, 6),
+        (7, 7),
+        (8, 0),
+        (8, 1),
+        (8, 2),
+        (8, 3),
+        (8, 5),
+        (8, 6)
+    ])
+    def test_position_is_not_original(self, x, y):
+        value = self.sudoku.val_position(x, y)
         self.assertTrue(value)
 
     def test_number_is_not_in_submatrix(self):
