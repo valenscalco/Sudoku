@@ -46,9 +46,21 @@ class Interfaz(Sudoku):
                 validoc = self.validate_y(y)
                 if validoc is False:
                     print("Ingrese un numero válido")
-            print("Posición no válida")
+            valp = self.sudoku.val_position(x, y)
+            valr = self.sudoku.val_row(number, x)
+            valc = self.sudoku.val_column(number, y)
+            vala = self.sudoku.val_area(number, x, y)
+            if vala is False:
+                print("Numero repetido en el area")
+            if valc is False:
+                print("Numero repetido en la columna")
+            if valr is False:
+                print("Numero repetido en la fila")
+            if valp is False:
+                print("Posición original, ingrese ota posición")
 
             self.sudoku.val_variables(number, x, y)
+        print("GANASTE")
 
     def validate(self, number):
         try:
